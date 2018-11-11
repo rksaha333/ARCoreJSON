@@ -1,0 +1,27 @@
+This is the complete configuration and installation instraction.
+First download the unity and if someone not know avbout the unity just watch a tutorial.
+Here for augmented reality there are two appliocation support that i have ever used 
+
+Vuforia development for target image and vumarks
+
+another one Google ARCore SDK
+
+Android devices compitable issue in unity and Android studio
+First connect new android devices and try to refresh the build setting>run device menu
+If no device is found then go to cmd window and
+write cd (the file path ex: C:\Users\saha\AppData\Local\Android\Sdk\platform-tools)
+Then unplug the device
+cmd>adb kill-server
+cmd>>adb start-server
+Now plug in device again and fix
+*****AppData ***file usually hiden so make it visiable
+*************Another try*******
+ try to find the adb devices are connencted or not
+ cmd and C:\Users\saha\AppData\Local\Android\Sdk\platform-tools this file>> write the ''adb devices''
+ if not show any devices then
+ 1.device manager>>another device>> Android ABD interface>>write click>>actalization>>search in compiuter>>those the devices>> and finish
+ 
+ For GoogleARCore
+ 
+ 
+ playersettings>checkinAR support>other settings>>uncheck multithreaded rendering>>minimum api leve>>7.0
