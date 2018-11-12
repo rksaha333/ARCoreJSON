@@ -3,12 +3,15 @@
 	using System.Collections.Generic;
 	using GoogleARCore;
 	using UnityEngine;
+	using UnityEngine.UI;
 	using UnityEngine.Rendering;
 	using GoogleARCore.Examples.Common;
+	using DefaultNamespace;
 
 #if UNITY_EDITOR
 	// Set up touch input propagation while using Instant Preview in the editor.
 	using Input = InstantPreviewInput;
+	
 #endif
 
 	/// <summary>
@@ -30,16 +33,19 @@
 		/// A model to place when a raycast from a user touch hits a plane.
 		/// </summary>
 		//public GameObject AndyAndroidPrefab;
-		//public GameObject catObject;
-		public GameObject MyObject;
-		public Canvas MyCanvas;
 
+		/*
 		public int numberOfObjectsAllowed = 1;
 		private int currentNumberOfObjects = 0;
+		*/
 		/// <summary>
 		/// A gameobject parenting UI for displaying the "searching for planes" snackbar.
 		/// </summary>
+		/// //public GameObject catObject;
+		public GameObject MyObject;
+		public GameObject MyCanvas;
 		public GameObject SearchingForPlaneUI;
+		public GameObject NavigationPlaneUI;
 
 
 		/// <summary>
@@ -58,9 +64,11 @@
 		/// True if the app is in the process of quitting due to an ARCore connection error, otherwise false.
 		/// </summary>
 		private bool m_IsQuitting = false;
-		private float zoomSpeed;
+		//public bool isSurfaceDetected = true;
+		//private float zoomSpeed;
 
-		public bool candisplay = true;
+		//public bool candisplay = true;
+
 
 		/// <summary>
 		/// The Unity Update() method.
@@ -93,7 +101,7 @@
 			//This variable only for check the object is placed or not
 			//if placed then stoip the surface detection 
 			//else continue the surface detection
-
+		
 			
 			Session.GetTrackables<DetectedPlane>(m_NewPlanes, TrackableQueryFilter.New);
 			for (int i = 0; i < m_NewPlanes.Count; i++)
@@ -111,20 +119,22 @@
 			// Hide snackbar when currently tracking at least one plane.
 			Session.GetTrackables<DetectedPlane>(m_AllPlanes);
 			bool showSearchingUI = true;
+			bool showNavigationUI = false;
 			for (int i = 0; i < m_AllPlanes.Count; i++)
 			{
 				if (m_AllPlanes[i].TrackingState == TrackingState.Tracking)
 				{
 					showSearchingUI = false;
-					//showDisplay = true;
+					showNavigationUI = true;
 					break;
 
 				}
 			}
 
 			SearchingForPlaneUI.SetActive(showSearchingUI);
+			NavigationPlaneUI.SetActive(showNavigationUI);
 
-			
+
 			//m_ObjectPrefeb.SetActive(showDisplay);
 
 
@@ -143,19 +153,21 @@
 			if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
 			{
 
-				if (currentNumberOfObjects < numberOfObjectsAllowed)
+				/*if (currentNumberOfObjects < numberOfObjectsAllowed)
 				{
 
 					currentNumberOfObjects = currentNumberOfObjects + 1;
+					*/
 
 					var DisplayObject = Instantiate(MyObject, hit.Pose.position, hit.Pose.rotation);
-					
+
+					/*
 					if(candisplay)
 					{
 						MyCanvas.gameObject.SetActive(candisplay);
 
 					}
-
+						*/
 					var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
 					// Andy should look at the camera but still be flush with the plane.
@@ -170,17 +182,22 @@
 					}
 
 					DisplayObject.transform.parent = anchor.transform;
-					
 
-				}
-					
+
+				
+
 
 
 			}
 
-			
-			  		  
+
+
+
+
+
+
 		}
+		
 
 		/// <summary>
 		/// Quit the application if there was a connection error for the ARCore session.
