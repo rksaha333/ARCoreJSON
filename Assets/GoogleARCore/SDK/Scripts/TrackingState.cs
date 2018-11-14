@@ -28,16 +28,16 @@ namespace GoogleARCore
         /// <summary>
         /// The entity is actively being tracked.
         /// </summary>
-        Tracking = 0,
+        Tracking=0,
 
         /// <summary>
         /// ARCore has paused tracking the entity but may resume tracking it in the future.
         /// </summary>
-        Paused = 1,
+        Paused=1,
 
         /// <summary>
         /// ARCore has stopped tracking the entity and will never resume tracking it.
         /// </summary>
-        Stopped = 2,
+        Stopped=2,
     }
 }
