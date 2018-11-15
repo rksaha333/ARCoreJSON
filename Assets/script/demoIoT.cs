@@ -531,7 +531,7 @@ public class demoIoT : MonoBehaviour {
 	private void MagentaButtonColor(int i)
 	{
 		//Blue color
-		Color magentaColor = new Color(1.0f, 0.0f, 1.0f, 1.0f);
+		Color magentaColor = new Color(0.5f, 0.5f, 1.0f, 1.0f);
 		Button b = But[i].GetComponent<Button>();
 		ColorBlock cb = b.colors;
 		cb.normalColor = magentaColor;
