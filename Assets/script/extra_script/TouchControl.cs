@@ -9,13 +9,15 @@ public class TouchControl : MonoBehaviour
 	//public GameObject MyObject;
 
 
-	public GameObject SelectedObject;
+	//public GameObject IMS3;
 	public Button button;
 	public Text MyText;
+	public Canvas ObjectCanvas;
 	int counter;
 	int index;
 	public bool TouchState = false;
 
+ 
 	public void TouchTextButton()
 	{
 		
@@ -23,19 +25,24 @@ public class TouchControl : MonoBehaviour
 		if (counter % 2 == 1)
 		{
 			TouchState = false;
-			MyText.text = "Touch Stop";
-			SelectedObject.gameObject.SetActive(false);
-			GrayButtonColor(index=0);
-			
+			MyText.text = "Touch Start";
+			//SelectedObject.gameObject.SetActive(false);
+			ObjectCanvas.gameObject.SetActive(false);
+			GrayButtonColor(index = 0);
+
 
 
 		}
 		else
 		{
 			TouchState = true;
-			MyText.text = "Touch On";
-			SelectedObject.gameObject.SetActive(true);
+			MyText.text = "Touch Stop";
+			ObjectCanvas.gameObject.SetActive(true); //object canvas will be visiable
+			//SelectedObject.gameObject.SetActive(true);
+
 			GreenButtonColor(index = 1);
+
+
 
 
 		}

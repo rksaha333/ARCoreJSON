@@ -43,26 +43,28 @@ namespace GoogleARCore.Examples.HelloAR
         /// </summary>
         public Camera FirstPersonCamera;
 
-        /// <summary>
-        /// A prefab for tracking and visualizing detected planes.
-    
+		/// <summary>
+		/// A prefab for tracking and visualizing detected planes.
 
-        /// <summary>
-        /// A model to place when a raycast from a user touch hits a plane.
-        /// </summary>
-        public GameObject AndyPlanePrefab;
 
-        /// <summary>
-        /// A model to place when a raycast from a user touch hits a feature point.
-        /// </summary>
-        //public GameObject AndyPointPrefab;
+		/// <summary>
+		/// A model to place when a raycast from a user touch hits a plane.
+		/// </summary>
+		public GameObject[] ObPrefab = new GameObject[4];
+		/// <summary>
+		/// A model to place when a raycast from a user touch hits a feature point.
+		/// </summary>
+		//public GameObject AndyPointPrefab;
 
-        
-        public GameObject SearchingForPlaneUI; //This is the Searcing plane canvas
+
+		public GameObject SearchingForPlaneUI; //This is the Searcing plane canvas
 		public GameObject MyDisplay;   //This is the Visualize info display
 		public GameObject NavigationPlaneUI;//This is navigation display
-		
+		public GameObject ObjectCanvas;//This is navigation display
+
 		//public bool TrackState = true;
+		//public bool showSearchingUI; //Condition for the sercing canvas
+		//public bool showNavigationUI;   //condition for the Navigation canvas
 
 
 
@@ -81,9 +83,10 @@ namespace GoogleARCore.Examples.HelloAR
         /// True if the app is in the process of quitting due to an ARCore connection error, otherwise false.
         /// </summary>
         private bool m_IsQuitting = false;
+
 		//private int currentNumberOfObjects=0;
 		//public int numberOfObjectsAllowed;
-
+		 int index;
 		/// <summary>
 		/// The Unity Update() method.
 		/// </summary>
@@ -93,8 +96,8 @@ namespace GoogleARCore.Examples.HelloAR
 
             // Hide snackbar when currently tracking at least one plane.
             Session.GetTrackables<DetectedPlane>(m_AllPlanes);
-            bool showSearchingUI = true;  //Condition for the sercing canvas
-			bool showNavigationUI = false;	 //condition for the Navigation canvas
+			bool showSearchingUI=true; //Condition for the sercing canvas
+			bool showNavigationUI=false;
 
 			for (int i = 0; i < m_AllPlanes.Count; i++)
             {
@@ -102,6 +105,7 @@ namespace GoogleARCore.Examples.HelloAR
 				{	
 					showSearchingUI = false;
 					showNavigationUI = true;
+					
 					break;
                 }
 				
@@ -109,6 +113,7 @@ namespace GoogleARCore.Examples.HelloAR
 
             SearchingForPlaneUI.SetActive(showSearchingUI);
 			NavigationPlaneUI.SetActive(showNavigationUI);
+			
 
 			// If the player has not touched the screen, we are done with this update.
 
@@ -136,41 +141,86 @@ namespace GoogleARCore.Examples.HelloAR
 
 					else
 					{
-					//From here the touch will be activated
-					//touch control start from here
-					//if touch control buton activate the tuch will be activated from here as well
-
-						gameObject.GetComponent<TouchControl>().SelectedObject= AndyPlanePrefab;
-						if(gameObject.GetComponent<TouchControl>().TouchState==true)
-						{ 
-							/*if (currentNumberOfObjects < numberOfObjectsAllowed)
-							{
-
-							currentNumberOfObjects = currentNumberOfObjects + 1;   */
-
-							// Choose the Andy model for the Trackable that got hit.
-							//GameObject prefab;
-							//prefab = AndyPlanePrefab;
-							//AndyPlanePrefab.gameObject.SetActive(true);   //Now display the canvas here		
-
-							// Instantiate Andy model at the hit pose.
-							var andyObject = Instantiate(AndyPlanePrefab, hit.Pose.position, hit.Pose.rotation);
-
-							// Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
-							andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
-
-							// Create an anchor to allow ARCore to track the hitpoint as understanding of the physical
-							// world evolves.
-							var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-
-							// Make Andy model a child of the anchor.
-							andyObject.transform.parent = anchor.transform;
-						}
-
-						if(gameObject.GetComponent<TouchControl>().TouchState == true)
+						//From here the touch will be activated
+						//touch control start from here
+						//if touch control buton activate the tuch will be activated from here as well
+					
+						if (gameObject.GetComponent<TouchControl>().TouchState==true)
 						{
-						AndyPlanePrefab.gameObject.SetActive(false);
+								if(gameObject.GetComponent<ObjectSelection>().IMS3VisualState == true)
+								{
+									gameObject.GetComponent<ObjectSelection>().numobject[index=0] = ObPrefab[index=0];
+									//ObjectRegistration();
+									var andyObject = Instantiate(ObPrefab[index], hit.Pose.position, hit.Pose.rotation);
+
+									// Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
+									andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
+
+									// Create an anchor to allow ARCore to track the hitpoint as understanding of the physical
+									// world evolves.
+									var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+									// Make Andy model a child of the anchor.
+									andyObject.transform.parent = anchor.transform;
+
+
+								}
+
+								if (gameObject.GetComponent<ObjectSelection>().IMS4VisualState == true)
+								{
+									gameObject.GetComponent<ObjectSelection>().numobject[index=1] = ObPrefab[index=1];
+									var andyObject = Instantiate(ObPrefab[index], hit.Pose.position, hit.Pose.rotation);
+
+									// Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
+									andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
+
+									// Create an anchor to allow ARCore to track the hitpoint as understanding of the physical
+									// world evolves.
+									var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+									// Make Andy model a child of the anchor.
+									andyObject.transform.parent = anchor.transform;
+
+								}
+								if (gameObject.GetComponent<ObjectSelection>().IMS5VisualState == true)
+								{
+									gameObject.GetComponent<ObjectSelection>().numobject[index=2] = ObPrefab[index=2];
+									var andyObject = Instantiate(ObPrefab[index], hit.Pose.position, hit.Pose.rotation);
+
+									// Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
+									andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
+
+									// Create an anchor to allow ARCore to track the hitpoint as understanding of the physical
+									// world evolves.
+									var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+									// Make Andy model a child of the anchor.
+									andyObject.transform.parent = anchor.transform;
+
+								}
+								if (gameObject.GetComponent<ObjectSelection>().IMS7VisualState == true)
+								{
+									gameObject.GetComponent<ObjectSelection>().numobject[index=3] = ObPrefab[index=3];
+									var andyObject = Instantiate(ObPrefab[index], hit.Pose.position, hit.Pose.rotation);
+
+									// Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
+									andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
+
+									// Create an anchor to allow ARCore to track the hitpoint as understanding of the physical
+									// world evolves.
+									var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+									// Make Andy model a child of the anchor.
+									andyObject.transform.parent = anchor.transform;
+									
+								}
+
+
+
+
 						}
+
+						
 
 
 
@@ -180,10 +230,12 @@ namespace GoogleARCore.Examples.HelloAR
 				}
 
 
+
 				
-		}           
-        /// Check and update the application lifecycle.
-        private void _UpdateApplicationLifecycle()
+		} 
+		
+		/// Check and update the application lifecycle.
+		private void _UpdateApplicationLifecycle()
         {
             // Exit the app when the 'back' button is pressed.
             if (Input.GetKey(KeyCode.Escape))

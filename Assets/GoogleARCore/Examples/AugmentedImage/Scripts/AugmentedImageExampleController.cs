@@ -47,10 +47,17 @@ namespace GoogleARCore.Examples.AugmentedImage
         private List<AugmentedImage> m_TempAugmentedImages = new List<AugmentedImage>();
 
         /// <summary>
+        /// 
+        /// 
+        public void Start()
+        {
+            AugmentedImageVisualizerPrefab.gameObject.SetActive(false);
+        }
         /// The Unity Update method.
         /// </summary>
         public void Update()
         {
+
             // Exit the app when the 'back' button is pressed.
             if (Input.GetKey(KeyCode.Escape))
             {
@@ -74,6 +81,7 @@ namespace GoogleARCore.Examples.AugmentedImage
                 m_Visualizers.TryGetValue(image.DatabaseIndex, out visualizer);
                 if (image.TrackingState == TrackingState.Tracking && visualizer == null)
                 {
+                    AugmentedImageVisualizerPrefab.gameObject.SetActive(true);
                     // Create an anchor to ensure that ARCore keeps tracking this augmented image.
                     Anchor anchor = image.CreateAnchor(image.CenterPose);
                     visualizer = (AugmentedImageVisualizer)Instantiate(AugmentedImageVisualizerPrefab, anchor.transform);
