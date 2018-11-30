@@ -60,7 +60,6 @@ namespace GoogleARCore.Examples.HelloAR
 		public GameObject SearchingForPlaneUI; //This is the Searcing plane canvas
 		public GameObject MyDisplay;   //This is the Visualize info display
 		public GameObject NavigationPlaneUI;//This is navigation display
-		public GameObject ObjectCanvas;//This is navigation display
 
 		//public bool TrackState = true;
 		//public bool showSearchingUI; //Condition for the sercing canvas
@@ -105,6 +104,7 @@ namespace GoogleARCore.Examples.HelloAR
 				{	
 					showSearchingUI = false;
 					showNavigationUI = true;
+					//if(gameObject.GetComponent<TouchControl>().)
 					
 					break;
                 }
@@ -113,6 +113,11 @@ namespace GoogleARCore.Examples.HelloAR
 
             SearchingForPlaneUI.SetActive(showSearchingUI);
 			NavigationPlaneUI.SetActive(showNavigationUI);
+			//When the navigation panel diapare then the object canvas also need to disapare
+			if(showNavigationUI==false)
+			{
+				gameObject.GetComponent<TouchControl>().ObjectCanvas.gameObject.SetActive(false);
+			}
 			
 
 			// If the player has not touched the screen, we are done with this update.
@@ -151,7 +156,7 @@ namespace GoogleARCore.Examples.HelloAR
 								{
 									gameObject.GetComponent<ObjectSelection>().numobject[index=0] = ObPrefab[index=0];
 									//ObjectRegistration();
-									var andyObject = Instantiate(ObPrefab[index], hit.Pose.position, hit.Pose.rotation);
+									var andyObject = Instantiate(ObPrefab[index=0], hit.Pose.position, hit.Pose.rotation);
 
 									// Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
 									andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
@@ -169,7 +174,7 @@ namespace GoogleARCore.Examples.HelloAR
 								if (gameObject.GetComponent<ObjectSelection>().IMS4VisualState == true)
 								{
 									gameObject.GetComponent<ObjectSelection>().numobject[index=1] = ObPrefab[index=1];
-									var andyObject = Instantiate(ObPrefab[index], hit.Pose.position, hit.Pose.rotation);
+									var andyObject = Instantiate(ObPrefab[index=1], hit.Pose.position, hit.Pose.rotation);
 
 									// Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
 									andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
@@ -185,7 +190,8 @@ namespace GoogleARCore.Examples.HelloAR
 								if (gameObject.GetComponent<ObjectSelection>().IMS5VisualState == true)
 								{
 									gameObject.GetComponent<ObjectSelection>().numobject[index=2] = ObPrefab[index=2];
-									var andyObject = Instantiate(ObPrefab[index], hit.Pose.position, hit.Pose.rotation);
+									
+									var andyObject = Instantiate(ObPrefab[index=2], hit.Pose.position, hit.Pose.rotation);
 
 									// Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
 									andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
@@ -200,8 +206,9 @@ namespace GoogleARCore.Examples.HelloAR
 								}
 								if (gameObject.GetComponent<ObjectSelection>().IMS7VisualState == true)
 								{
-									gameObject.GetComponent<ObjectSelection>().numobject[index=3] = ObPrefab[index=3];
-									var andyObject = Instantiate(ObPrefab[index], hit.Pose.position, hit.Pose.rotation);
+									gameObject.GetComponent<ObjectSelection>().numobject[index=3] = ObPrefab[index = 3];
+									
+									var andyObject = Instantiate(ObPrefab[index=3], hit.Pose.position, hit.Pose.rotation);
 
 									// Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
 									andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);

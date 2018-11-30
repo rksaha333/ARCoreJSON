@@ -9,12 +9,6 @@ public class ObjectSelection : MonoBehaviour {
 	public GameObject[] numobject = new GameObject[4];
 	public Text[] MyText = new Text[4];
 
-	/*
-	public GameObject IMS3;
-	public GameObject IMS4;
-	public GameObject IMS5;
-	public GameObject IMS7;
-	*/
 	int counter;
 	int index;
 	public bool IMS3VisualState = false;
@@ -25,14 +19,14 @@ public class ObjectSelection : MonoBehaviour {
 
 	public void ObjectButtonIMS3()
 	{
+		
 		index = 0;
 		counter++;
 		if (counter % 2 == 1)
 		{
-		
+
 			IMS3VisualState = false;
 			MyText[index].text = "Show";
-			//SelectedObject.gameObject.SetActive(false);
 			numobject[index].gameObject.SetActive(false);
 			GrayButtonColor(index);
 
@@ -41,10 +35,10 @@ public class ObjectSelection : MonoBehaviour {
 		}
 		else
 		{
-			
+
 			IMS3VisualState = true;
 			MyText[index].text = "Hide";
-			numobject[index].gameObject.SetActive(true); //object canvas will be visiabl										 //SelectedObject.gameObject.SetActive(true);
+			numobject[index].gameObject.SetActive(true);
 			GreenButtonColor(index);
 
 		}
@@ -69,7 +63,7 @@ public class ObjectSelection : MonoBehaviour {
 		{
 			IMS4VisualState = true;
 			MyText[index].text = "Hide";
-			numobject[index].gameObject.SetActive(true); //object canvas will be visiabl										 //SelectedObject.gameObject.SetActive(true);
+			numobject[index].gameObject.SetActive(true);
 			GreenButtonColor(index);
 
 		}
@@ -81,10 +75,9 @@ public class ObjectSelection : MonoBehaviour {
 		counter++;
 		if (counter % 2 == 1)
 		{
-		
+
 			IMS5VisualState = false;
 			MyText[index].text = "Show";
-			//SelectedObject.gameObject.SetActive(false);
 			numobject[index].gameObject.SetActive(false);
 			GrayButtonColor(index);
 
@@ -95,8 +88,9 @@ public class ObjectSelection : MonoBehaviour {
 		{
 			IMS5VisualState = true;
 			MyText[index].text = "Hide";
-			numobject[index].gameObject.SetActive(true); //object canvas will be visiabl										 //SelectedObject.gameObject.SetActive(true);
 			GreenButtonColor(index);
+			numobject[index].gameObject.SetActive(true);
+
 
 		}
 
@@ -110,7 +104,6 @@ public class ObjectSelection : MonoBehaviour {
 			
 			IMS7VisualState = false;
 			MyText[index].text = "Show";
-			//SelectedObject.gameObject.SetActive(false);
 			numobject[index].gameObject.SetActive(false);
 			GrayButtonColor(index);
 
@@ -121,13 +114,16 @@ public class ObjectSelection : MonoBehaviour {
 		{
 			IMS7VisualState = true;
 			MyText[index].text = "Hide";
-			numobject[index].gameObject.SetActive(true); //object canvas will be visiabl										 //SelectedObject.gameObject.SetActive(true);
 			GreenButtonColor(index);
+			numobject[index].gameObject.SetActive(true);
+
 
 		}
 
 	}
 
+
+	//This is for the change of the button
 	private void GreenButtonColor(int i)
 	{
 		Color greenColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
@@ -146,5 +142,7 @@ public class ObjectSelection : MonoBehaviour {
 		btn.colors = cb;
 
 	}
+
 	
+
 }

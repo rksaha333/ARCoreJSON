@@ -26,7 +26,6 @@ public class TouchControl : MonoBehaviour
 		{
 			TouchState = false;
 			MyText.text = "Touch Start";
-			//SelectedObject.gameObject.SetActive(false);
 			ObjectCanvas.gameObject.SetActive(false);
 			GrayButtonColor(index = 0);
 
@@ -37,9 +36,7 @@ public class TouchControl : MonoBehaviour
 		{
 			TouchState = true;
 			MyText.text = "Touch Stop";
-			ObjectCanvas.gameObject.SetActive(true); //object canvas will be visiable
-			//SelectedObject.gameObject.SetActive(true);
-
+			ObjectCanvas.gameObject.SetActive(true);
 			GreenButtonColor(index = 1);
 
 
